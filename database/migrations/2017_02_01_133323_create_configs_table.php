@@ -16,6 +16,7 @@ class CreateConfigsTable extends Migration
         Schema::create('configs', function(Blueprint $table){
             $table->increments('id');
             $table->string('slack_ids', 50)->unique();
+            $table->string('slack_token', 100)->unique();
             $table->json('config');
             $table->timestamps();
         });
