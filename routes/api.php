@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use App\Plugin;
 use App\Config;
 use App\Exceptions\SlackException;
+use App\Exceptions\AuthenticationException;
+use App\Helpers\MQTT;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,12 +27,21 @@ Route::get('/plugins', function(Request $request){
 });
 
 Route::get('/configs', function(Request $request){
-	//TODO: Only return users if correct sirius-token is provided!
-	return Config::all();
+	if(isset($_GET['token']) && isset($_ENV['SIRIUS_TOKEN']) && $_GET['token'] == $_ENV['SIRIUS_TOKEN']){
+		return Config::all();
+	}else{
+		throw new AuthenticationException;
+	}
 });
 
 Route::get('/configs/{token}', function(Request $request, $token){
 	return Config::where('slack_token', '=', $token)->firstOrFail();
+});
+
+Route::delete('/configs/{token}', function(Request $request, $token){
+	$config = Config::where('slack_token', '=', $token)->firstOrFail();
+	$config->destroy();
+	MQTT::send('delete:'.$token);
 });
 
 Route::post('/configs', function(Request $request){
@@ -46,19 +57,23 @@ Route::post('/configs', function(Request $request){
 
 		$slack_ids = $slackData->team_id.'.'.$slackData->user_id;
 		$model = Config::where('slack_ids', '=', $slack_ids)->first();
+
+		if($model !== null){
+			//slack token is valid, user config exists but with another token, deregister the old one with the sirius-server
+			MQTT::send('delete:'.$model->slack_token);
+		}
 	}
 
 	if($model == null){
 		$model = new Config;
-		if(isset($slack_ids)){
-			$model->slack_ids = $slack_ids;
-		}else{
-			throw new SlackException;
-		}
+		$model->slack_token = $data['slack_token'];
+		$model->slack_ids = $slack_ids;
 	}
 
-	$model->fill($data);
+	$model->config = $data['config'];
+
 	$model->save();
+	MQTT::send('update:'.$model->toJson());
 
 	return $model->fresh();
 });
