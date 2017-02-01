@@ -17,7 +17,7 @@ class CreatePluginsTable extends Migration
             $table->increments('id');
             $table->string('name', 100);
             $table->text('description');
-            $table->json('config');
+            $table->json('config')->nullable();
             $table->timestamps();
         });
     }
