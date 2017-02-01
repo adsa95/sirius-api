@@ -3,6 +3,6 @@ namespace App\Exceptions;
 
 use \Exception;
 
-class SlackExceotion extends Exception{
+class SlackException extends Exception{
 	
 }
