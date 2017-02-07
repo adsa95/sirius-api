@@ -4,7 +4,6 @@ use Illuminate\Http\Request;
 use App\Plugin;
 use App\Config;
 use App\Exceptions\SlackException;
-use App\Exceptions\AuthenticationException;
 use App\Helpers\MQTT;
 
 /*
@@ -27,12 +26,8 @@ Route::get('/plugins', function(Request $request){
 });
 
 Route::get('/configs', function(Request $request){
-	if(isset($_GET['token']) && isset($_ENV['SIRIUS_TOKEN']) && $_GET['token'] == $_ENV['SIRIUS_TOKEN']){
-		return Config::all();
-	}else{
-		throw new AuthenticationException;
-	}
-});
+    return Config::all();
+})->middleware(['require.token']);
 
 Route::get('/configs/{token}', function(Request $request, $token){
 	return Config::where('slack_token', '=', $token)->firstOrFail();
