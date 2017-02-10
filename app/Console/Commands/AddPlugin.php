@@ -1,7 +1,6 @@
-<?php
+<?php namespace App\Console\Commands;
 
-namespace App\Console\Commands;
-
+// Core
 use Illuminate\Console\Command;
 
 // Models
