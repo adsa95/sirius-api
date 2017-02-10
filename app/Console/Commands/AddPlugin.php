@@ -3,7 +3,9 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Plugin;
+
+// Models
+use App\Models\Plugin;
 
 class AddPlugin extends Command
 {
