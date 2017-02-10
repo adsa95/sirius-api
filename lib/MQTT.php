@@ -1,5 +1,5 @@
-<?php
-namespace App\Libraries;
+<?php namespace Library;
+
 /*
  	phpMQTT
 	A simple php class to connect/publish/subscribe to an MQTT broker
@@ -33,7 +33,7 @@ namespace App\Libraries;
 */
 
 /* phpMQTT */
-class phpMQTT {
+class MQTT {
 
 	private $socket; 			/* holds the socket	*/
 	private $msgid = 1;			/* counter for message id */

@@ -1,10 +1,17 @@
 <?php
 
+// Core
 use Illuminate\Http\Request;
+
+// Exceptions
+use App\Exceptions\SlackException;
+
+// MQTT
+use App\Helpers\MQTT;
+
+// Models
 use App\Plugin;
 use App\Config;
-use App\Exceptions\SlackException;
-use App\Helpers\MQTT;
 
 /*
 |--------------------------------------------------------------------------
