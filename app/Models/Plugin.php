@@ -7,7 +7,7 @@ class Plugin extends Model
 {
     public function getConfigAttribute($value)
     {
-    	if (is_null($value)) return $value;
+    	if ($value === null) return $value;
 
     	return json_decode($value);
     }
