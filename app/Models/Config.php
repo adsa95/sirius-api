@@ -1,7 +1,7 @@
 <?php namespace App\Models;
 
+// Core
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Hash;
 
 class Config extends Model
 {
