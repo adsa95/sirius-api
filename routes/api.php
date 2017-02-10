@@ -10,8 +10,8 @@ use App\Exceptions\SlackException;
 use App\Helpers\MQTT;
 
 // Models
-use App\Plugin;
-use App\Config;
+use App\Models\Plugin;
+use App\Models\Config;
 
 /*
 |--------------------------------------------------------------------------

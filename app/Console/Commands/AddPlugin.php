@@ -1,9 +1,10 @@
-<?php
+<?php namespace App\Console\Commands;
 
-namespace App\Console\Commands;
-
+// Core
 use Illuminate\Console\Command;
-use App\Plugin;
+
+// Models
+use App\Models\Plugin;
 
 class AddPlugin extends Command
 {

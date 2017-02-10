@@ -1,9 +1,7 @@
-<?php
+<?php namespace App\Models;
 
-namespace App;
-
+// Core
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Hash;
 
 class Config extends Model
 {
@@ -11,17 +9,20 @@ class Config extends Model
 	protected $hidden = ['slack_ids'];
 	protected $appends = ['id_hash_sha256'];
 
-	public function getIdHashSha256Attribute(){
+	public function getIdHashSha256Attribute()
+    {
 		return hash('sha256', $this->attributes['slack_ids']);
 	}
 
-    public function getConfigAttribute($value){
-    	if(is_null($value)) return $value;
+    public function getConfigAttribute($value)
+    {
+    	if ($value === null) return $value;
 
     	return json_decode($value);
     }
 
-    public function setConfigAttribute($value){
+    public function setConfigAttribute($value)
+    {
     	$this->attributes['config'] = json_encode($value);
     }
 }
