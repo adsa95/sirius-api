@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "adsa95/sirius-api",
+    "description": "The Sirius API backend.",
+    "keywords": ["sirius", "slack", "extensions"],
     "license": "MIT",
     "type": "project",
     "require": {
