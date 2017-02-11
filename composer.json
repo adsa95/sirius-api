@@ -1,11 +1,11 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "adsa95/sirius-api",
+    "description": "The Sirius API backend.",
+    "keywords": ["sirius", "slack", "extensions"],
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.6.4",
+        "php": ">=7.0.0",
         "barryvdh/laravel-cors": "^0.8.5",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0"
