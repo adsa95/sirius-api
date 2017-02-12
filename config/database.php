@@ -2,22 +2,28 @@
 
 $databaseUrl = env('DATABASE_URL');
 
-$urlDb = [
-    'host' => null,
-    'port' => null,
-    'database' => null,
-    'username' => null,
-    'password' => null
-];
-
-if ($databaseUrl !== null) {
+$setDbSettingsFromUrl = function(string $url) {
     $parsed = parse_url($url);
 
-    $urlDb['host'] = $parsed['host'];
-    $urlDb['port'] = $parsed['port'];
-    $urlDb['username'] = $parsed['user'];
-    $urlDb['password'] = $parsed['pass'];
-    $urlDb['database'] = substr($parsed['path'], 1);
+    $host = $parsed['host'];
+    $port = $parsed['port'];
+    $username = $parsed['user'];
+    $password = $parsed['pass'];
+    $database = substr($parsed['path'], 1);
+
+    putenv('DB_HOST=' . $host);
+    putenv('DB_PORT=' . $port);
+    putenv('DB_DATABASE=' . $database);
+    putenv('DB_USERNAME=' . $username);
+    putenv('DB_PASSWORD=' . $password);
+};
+
+$databaseName = env('HEROKU_DB', 'DATABASE_URL');
+$databaseUrl = env($databaseName, null);
+
+// If we have a Heroku DB URI we can use, we'll override any manual settings
+if ($databaseUrl !== null) {
+    $setDbSettingsFromUrl($databaseUrl);
 }
 
 return [
@@ -80,19 +86,6 @@ return [
             'database' => env('DB_DATABASE', 'sirius-api'),
             'username' => env('DB_USERNAME', 'sirius'),
             'password' => env('DB_PASSWORD', ''),
-            'charset' => 'utf8',
-            'prefix' => '',
-            'schema' => 'public',
-            'sslmode' => 'prefer',
-        ],
-
-        'heroku' => [
-            'driver' => 'pgsql',
-            'host' => $urlDb['host'],
-            'port' => $urlDb['port'],
-            'database' => $urlDb['database'],
-            'username' => $urlDb['username'],
-            'password' => $urlDb['password'],
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',

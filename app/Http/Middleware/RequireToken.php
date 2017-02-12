@@ -23,7 +23,7 @@ class RequireToken
             $supplied = $request->input('token');
 
         } elseif ($supplied = $request->header('Authorization')) {
-            $supplied = mb_substr($supplied, mb_strlen('Bearer: '));
+            $supplied = mb_substr($supplied, mb_strlen('Bearer '));
         }
 
         if ($supplied !== $token) {
