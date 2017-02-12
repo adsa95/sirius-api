@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 // Core
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 // Helpers
 use Epoch2\HttpCodes;
@@ -14,7 +13,7 @@ use App\Models\Plugin;
 
 class PluginController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request)
     {
         return response()->json(
             Plugin::all(),
