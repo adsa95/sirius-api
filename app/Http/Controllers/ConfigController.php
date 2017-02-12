@@ -34,7 +34,10 @@ class ConfigController extends Controller
 
     public function show(Request $request, string $token)
     {
-        return Config::where('slack_token', '=', $token)->firstOrFail();
+        return response()->json(
+            Config::where('slack_token', '=', $token)->firstOrFail(),
+            HttpCodes::HTTP_OK
+        );
     }
 
     public function store(Request $request)
