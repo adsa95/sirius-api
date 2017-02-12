@@ -1,5 +1,25 @@
 <?php
 
+$databaseUrl = env('DATABASE_URL');
+
+$urlDb = [
+    'host' => null,
+    'port' => null,
+    'database' => null,
+    'username' => null,
+    'password' => null
+];
+
+if ($databaseUrl !== null) {
+    $parsed = parse_url($url);
+
+    $urlDb['host'] = $parsed['host'];
+    $urlDb['port'] = $parsed['port'];
+    $urlDb['username'] = $parsed['user'];
+    $urlDb['password'] = $parsed['pass'];
+    $urlDb['database'] = substr($parsed['path'], 1);
+}
+
 return [
 
     /*
@@ -68,11 +88,11 @@ return [
 
         'heroku' => [
             'driver' => 'pgsql',
-            'host' => env('DB_HOST', parse_url(getenv("DATABASE_URL"))['host']),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', substr(parse_url(getenv("DATABASE_URL"))['path'], 1)),
-            'username' => env('DB_USERNAME', parse_url(getenv("DATABASE_URL"))['user']),
-            'password' => env('DB_PASSWORD', parse_url(getenv("DATABASE_URL"))['pass']),
+            'host' => $urlDb['host'],
+            'port' => $urlDb['port'],
+            'database' => $urlDb['database'],
+            'username' => $urlDb['username'],
+            'password' => $urlDb['password'],
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',

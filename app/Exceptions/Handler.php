@@ -1,10 +1,16 @@
-<?php
+<?php namespace App\Exceptions;
 
-namespace App\Exceptions;
 
+// Core
 use Exception;
-use Illuminate\Auth\AuthenticationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
+// Helpers
+use Epoch2\HttpCodes;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -44,7 +50,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        return parent::render($request, $this->wrapException($exception));
     }
 
     /**
@@ -61,5 +67,26 @@ class Handler extends ExceptionHandler
         }
 
         return redirect()->guest('login');
+    }
+
+    /*
+     * Wraps an exception in a suitable HttpException, so that the error handler
+     * can automatically return the correct response code.
+     *
+     * Defaults to HTTP 500 Internal Server Error.
+     */
+    private function wrapException(Exception $e): HttpException
+    {
+        if ($e instanceof TokenException) {
+            return new HttpException(HttpCodes::HTTP_UNAUTHORIZED, $e->getMessage(), $e);
+        } elseif ($e instanceof ModelNotFoundException) {
+            return new NotFoundHttpException($e->getMessage(), $e);
+        } elseif ($e instanceof SlackException) {
+            if ($e instanceof SlackTokenException) {
+                return new HttpException(HttpCodes::HTTP_BAD_REQUEST, $e->getMessage(), $e);
+            }
+        }
+
+        return new HttpException(HttpCodes::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage(), $e);
     }
 }

@@ -1,8 +1,8 @@
 <?php
 namespace App\Exceptions;
 
-use \Exception;
+use \RuntimeException;
 
-class SlackException extends Exception{
-    
+class SlackException extends RuntimeException
+{
 }

@@ -1,6 +1,16 @@
-<?php
-namespace App\Exceptions;
+<?php namespace App\Exceptions;
 
-class TokenException extends \Exception{
+use \RuntimeException;
 
+class TokenException extends RuntimeException
+{
+    public static function noTokenConfigured(): TokenException
+    {
+        return new static('No access token configured.');
+    }
+
+    public static function invalidToken(): TokenException
+    {
+        return new static('Invalid access token.');
+    }
 }
