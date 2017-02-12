@@ -37,6 +37,6 @@ class UserDetails
 
     public function __toString(): string
     {
-        return "$this->userId.$this->teamId";
+        return "$this->teamId.$this->userId";
     }
 }
