@@ -2,31 +2,31 @@
 namespace App\Helpers;
 
 // Core
+use Log;
 use Config;
-use Illuminate\Support\Facades\Log;
+
+// Exceptions
+use App\Exceptions\MQTTException;
 
 // MQTT
 use Library\MQTT as MQTTClient;
 
 class MQTT
 {
-    public static function send($message)
+    private $conn;
+
+    public function __construct(string $host, string $port, string $clientId)
     {
-        $conn = new MQTTClient(
-            Config::get('mqtt.host'),
-            Config::get('mqtt.port'),
-            uniqid()); // Use uniqid to get a unique connection name
+        $this->conn = new MQTTClient($host, $port, $clientId);
 
-        if ($conn->connect()) {
-            $conn->publish('sirius', $message);
-            $conn->close();
-
-            Log::debug('Sent message to sirius-server: '.$message);
-
-            return true;
-        } else {
-            return false;
+        if (!$this->conn->connect()) {
+            throw MQTTException::connectionFailed($host, $port);
         }
+    }
 
+    public function publish(string $topic, string $message)
+    {
+            $this->conn->publish($topic, $message);
+            Log::debug("MQTT publish: $message");
     }
 }

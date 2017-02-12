@@ -7,14 +7,23 @@ use Illuminate\Http\Request;
 
 // Helpers
 use Epoch2\HttpCodes;
-use App\Helpers\MQTT;
 use App\Helpers\Slack;
+
+// Services
+use App\Services\Notifier;
 
 // Models
 use App\Models\Config;
 
 class ConfigController extends Controller
 {
+    private $notifier;
+
+    public function __construct(Notifier $notifier)
+    {
+        $this->notifier = $notifier;
+    }
+
     public function index(Request $request)
     {
         return response()->json(
@@ -38,6 +47,8 @@ class ConfigController extends Controller
         if ($config !== null) {
             $config->config = $configConfig;
             $config->save();
+
+            $this->notifier->update($config);
         } else {
             // Check if the user has an existing registration with a different token
             $id = (string) Slack::getUserDetails($token);
@@ -50,17 +61,18 @@ class ConfigController extends Controller
                 $config->config = $configConfig;
                 $config->save();
 
-                MQTT::send("delete:{$oldToken}");
+                $this->notifier->delete($oldToken);
+                $this->notifier->new($config);
             } else {
                 $config = new Config;
                 $config->slack_token = $token;
                 $config->slack_ids = $id;
                 $config->config = $configConfig;
                 $config->save();
+
+                $this->notifier->new($config);
             }
         }
-
-        MQTT::send("update:{$config->toJson()}");
 
         return response()->json(
             $config,
@@ -73,7 +85,7 @@ class ConfigController extends Controller
         $config = Config::where('slack_token', '=', $token)->firstOrFail();
         $config->delete();
 
-        MQTT::send('delete:'.$token);
+        $this->notifier->delete($token);
 
         return response(null, HttpCodes::HTTP_NO_CONTENT);
     }
