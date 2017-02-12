@@ -1,23 +1,35 @@
 <?php namespace App\Http\Middleware;
 
+// Core
+use Config;
+
 // Exceptions
 use App\Exceptions\TokenException;
-
 
 class RequireToken
 {
     public function handle($request, \Closure $next)
     {
-        if(!isset($_ENV['SIRIUS_TOKEN'])) throw new TokenException;
+        $token = Config::get('access.token');
 
-        $token = $_ENV['SIRIUS_TOKEN'];
-
-        if(isset($_GET['token']) && strcmp($_GET['token'], $token) == 0){
-            return $next($request);
-        }else if($request->header('Authorization') !== null && substr_compare($request->header('Authorization'), $token, 7) === 0){
-            return $next($request);
+        if ($token === null) {
+            throw TokenException::noTokenConfigured();
         }
 
-        throw new TokenException;
+        $supplied = null;
+
+        // GET-parameter
+        if ($request->has('token')) {
+            $supplied = $request->input('token');
+
+        } elseif ($supplied = $request->header('Authorization')) {
+            $supplied = mb_substr($supplied, mb_strlen('Bearer: '));
+        }
+
+        if ($supplied !== $token) {
+            throw TokenException::invalidToken();
+        }
+
+        return $next($request);
     }
 }
