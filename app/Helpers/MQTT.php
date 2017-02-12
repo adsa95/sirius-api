@@ -2,8 +2,11 @@
 namespace App\Helpers;
 
 // Core
-use App\Exceptions\MQTTException;
+use Log;
 use Config;
+
+// Exceptions
+use App\Exceptions\MQTTException;
 
 // MQTT
 use Library\MQTT as MQTTClient;
