@@ -7,7 +7,6 @@ class Slack
 {
     public static function getUserDetails(string $token): UserDetails
     {
-        return new UserDetails('abc', '123');
         $url = "https://slack.com/api/auth.test?token=$token";
 
         $response = json_decode(file_get_contents($url));
@@ -20,7 +19,7 @@ class Slack
             throw new SlackException;
         }
 
-        return new UserDetails($response['user_id'], $response['team_id']);
+        return new UserDetails($response->user_id, $response->team_id);
     }
 }
 
