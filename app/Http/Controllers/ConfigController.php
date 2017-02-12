@@ -48,7 +48,7 @@ class ConfigController extends Controller
             $config->config = $configConfig;
             $config->save();
 
-            $this->notifier->update($token, $config);
+            $this->notifier->update($config);
         } else {
             // Check if the user has an existing registration with a different token
             $id = (string) Slack::getUserDetails($token);

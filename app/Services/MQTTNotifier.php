@@ -24,9 +24,9 @@ class MQTTNotifier implements Notifier
         $this->client->publish($this->topic, "new:{$config->slack_token}");
     }
 
-    public function update(string $token, Config $config)
+    public function update(Config $config)
     {
-        $this->client->publish($this->topic, "update:{$token}");
+        $this->client->publish($this->topic, "update:{$config->slack_token}");
     }
 
     public function delete(string $token)

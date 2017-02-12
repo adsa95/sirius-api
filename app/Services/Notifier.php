@@ -13,6 +13,6 @@ use App\Models\Config;
 interface Notifier
 {
     public function new(Config $config);
-    public function update(string $token, Config $config);
+    public function update(Config $config);
     public function delete(string $token);
 }
