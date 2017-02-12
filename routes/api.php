@@ -24,9 +24,7 @@ use App\Models\Config;
 |
 */
 
-Route::get('/up', function (Request $request) {
-    return '{"ok": true}';
-});
+Route::get('/up', 'UpController@up');
 
 Route::get('/plugins', 'PluginController@index');
 Route::get('/configs', 'ConfigController@index')->middleware(['require.token']);
