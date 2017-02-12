@@ -81,6 +81,10 @@ class Handler extends ExceptionHandler
             return new HttpException(HttpCodes::HTTP_UNAUTHORIZED, $e->getMessage(), $e);
         } elseif ($e instanceof ModelNotFoundException) {
             return new NotFoundHttpException($e->getMessage(), $e);
+        } elseif ($e instanceof SlackException) {
+            if ($e instanceof SlackTokenException) {
+                return new HttpException(HttpCodes::HTTP_BAD_REQUEST, $e->getMessage(), $e);
+            }
         }
 
         return new HttpException(HttpCodes::HTTP_INTERNAL_SERVER_ERROR, $e->getMessage(), $e);

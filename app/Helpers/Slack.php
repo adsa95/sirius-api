@@ -1,7 +1,9 @@
 <?php declare(strict_types = 1);
 
 namespace App\Helpers;
-use App\Exceptions\SlackException;
+
+// Exceptions
+use App\Exceptions\SlackTokenException;
 
 class Slack
 {
@@ -12,11 +14,7 @@ class Slack
         $response = json_decode(file_get_contents($url));
 
         if (!$response->ok) {
-            throw new SlackException;
-        }
-
-        if (!array_key_exists('user_id', $response) || !array_key_exists('team_id', $response)) {
-            throw new SlackException;
+            throw SlackTokenException::invalidToken();
         }
 
         return new UserDetails($response->user_id, $response->team_id);
