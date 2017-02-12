@@ -24,5 +24,6 @@ class MQTT
     public function publish(string $topic, string $message)
     {
             $this->conn->publish($topic, $message);
+            Log::debug("MQTT publish: $message");
     }
 }
