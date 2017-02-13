@@ -15,11 +15,16 @@ class MQTT
 {
     private $conn;
 
-    public function __construct(string $host, string $port, string $clientId)
-    {
+    public function __construct(
+        string $host,
+        string $port,
+        string $clientId,
+        $user = null,
+        $password = null
+    ) {
         $this->conn = new MQTTClient($host, $port, $clientId);
 
-        if (!$this->conn->connect()) {
+        if (!$this->conn->connect(true, null, $user, $password)) {
             throw MQTTException::connectionFailed($host, $port);
         }
     }
