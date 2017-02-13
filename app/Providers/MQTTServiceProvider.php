@@ -14,6 +14,8 @@ use App\Services\MQTTNotifier;
 
 class MQTTServiceProvider extends ServiceProvider
 {
+    protected $defer = true;
+
     /**
      * Bootstrap the application services.
      *
