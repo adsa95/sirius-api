@@ -13,7 +13,7 @@ class AddPlugin extends Command
      *
      * @var string
      */
-    protected $signature = 'add:plugin {name} {description}';
+    protected $signature = 'plugin:add {name} {description}';
 
     /**
      * The console command description.

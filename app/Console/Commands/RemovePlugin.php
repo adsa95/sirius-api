@@ -13,7 +13,7 @@ class RemovePlugin extends Command
      *
      * @var string
      */
-    protected $signature = 'remove:plugin {name}';
+    protected $signature = 'plugin:remove {name}';
 
     /**
      * The console command description.
