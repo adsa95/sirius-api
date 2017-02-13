@@ -22,8 +22,8 @@ This method saves or updates an existing config. The request body should be a JS
 ```
 The API decides when to save a new and when to update a configuration, the database is searched for the specific Slack token, and if not found, it also uses the Slack API to get the user team and user id and compare those with what's already in the database. This is to avoid dublicate entries for the same user but with different tokens.
 
-### GET /configs/{slack_token}
-This method returns the configuration for a specific token.
+### GET /configs/{sirius_id}
+This method returns the configuration for a specific sirius_id.
 
-### DELETE /configs/{slack_token}
-This method deletes the configuration with a specific slack_token.
+### DELETE /configs/{sirius_id}
+This method deletes the configuration with a specific sirius_id.

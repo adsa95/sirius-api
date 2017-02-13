@@ -32,10 +32,10 @@ class ConfigController extends Controller
         );
     }
 
-    public function show(Request $request, string $token)
+    public function show(Request $request, string $siriusId)
     {
         return response()->json(
-            Config::where('slack_token', '=', $token)->firstOrFail(),
+            Config::where('sirius_id', '=', $siriusId)->firstOrFail(),
             HttpCodes::HTTP_OK
         );
     }
@@ -83,12 +83,12 @@ class ConfigController extends Controller
         );
     }
 
-    public function destroy(Request $request, string $token)
+    public function destroy(Request $request, string $siriusId)
     {
-        $config = Config::where('slack_token', '=', $token)->firstOrFail();
+        $config = Config::where('sirius_id', '=', $siriusId)->firstOrFail();
         $config->delete();
 
-        $this->notifier->delete($token);
+        $this->notifier->delete($siriusId);
 
         return response(null, HttpCodes::HTTP_NO_CONTENT);
     }
