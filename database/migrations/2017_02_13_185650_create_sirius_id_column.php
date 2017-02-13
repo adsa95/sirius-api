@@ -16,6 +16,17 @@ class CreateSiriusIdColumn extends Migration
         Schema::table('configs', function (Blueprint $table) {
             $table->string('sirius_id', 64)->nullable();
         });
+
+        // Generate ID for existing configs
+        $configs = DB::table('configs')->select('id', 'slack_ids', 'sirius_id')->get();
+
+        foreach ($configs as $config) {
+            if ($config->sirius_id === null) {
+                DB::table('configs')->where('id', $config->id)->update([
+                    'sirius_id' => hash('sha256', $config->slack_ids)
+                ]);
+            }
+        }
     }
 
     /**
