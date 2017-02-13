@@ -27,6 +27,11 @@ class CreateSiriusIdColumn extends Migration
                 ]);
             }
         }
+
+        // Add NOT NULL
+        Schema::table('configs', function (Blueprint $table) {
+            $table->string('sirius_id', 64)->nullable(false)->change();
+        });
     }
 
     /**
