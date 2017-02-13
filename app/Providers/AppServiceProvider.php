@@ -2,7 +2,14 @@
 
 namespace App\Providers;
 
+// Core
 use Illuminate\Support\ServiceProvider;
+
+// Observers
+use App\Observers\ConfigObserver;
+
+// Models
+use App\Models\Config;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Config::observe(ConfigObserver::class);
     }
 
     /**

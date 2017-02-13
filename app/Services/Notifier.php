@@ -14,5 +14,5 @@ interface Notifier
 {
     public function new(Config $config);
     public function update(Config $config);
-    public function delete(string $token);
+    public function delete(string $id);
 }

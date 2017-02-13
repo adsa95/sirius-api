@@ -28,7 +28,7 @@ Route::get('/up', 'UpController@up');
 
 Route::get('/plugins', 'PluginController@index');
 Route::get('/configs', 'ConfigController@index')->middleware(['require.token']);
-Route::get('/configs/{token}', 'ConfigController@show');
+Route::get('/configs/{sirius_id}', 'ConfigController@show');
 Route::post('/configs', 'ConfigController@store');
-Route::delete('/configs/{token}', 'ConfigController@destroy');
+Route::delete('/configs/{sirius_id}', 'ConfigController@destroy');
 
