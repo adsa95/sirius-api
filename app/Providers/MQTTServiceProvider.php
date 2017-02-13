@@ -14,6 +14,8 @@ use App\Services\MQTTNotifier;
 
 class MQTTServiceProvider extends ServiceProvider
 {
+    protected $defer = true;
+
     /**
      * Bootstrap the application services.
      *
@@ -37,7 +39,9 @@ class MQTTServiceProvider extends ServiceProvider
             $mqtt = new MQTT(
                 $config->get('mqtt.host'),
                 $config->get('mqtt.port'),
-                $config->get('mqtt.client_id')
+                $config->get('mqtt.client_id'),
+                $config->get('mqtt.user'),
+                $config->get('mqtt.password')
             );
 
             return new MQTTNotifier($mqtt, $config->get('mqtt.topic'));
