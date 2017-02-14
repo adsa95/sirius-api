@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b2ef6b2e849a2ed4ee63a79658468698",
-    "content-hash": "911a7fc61d68899bf434e2bf90fb975f",
+    "hash": "a6d4351e000d6038b50ea5fe2727844b",
+    "content-hash": "ed95fa401f4678d60c9ad76b9fbda691",
     "packages": [
         {
             "name": "barryvdh/laravel-cors",
@@ -564,44 +564,6 @@
             "time": "2014-09-09 13:34:57"
         },
         {
-            "name": "epoch2/http-codes",
-            "version": "v1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kayex/http-codes.git",
-                "reference": "c21375fd1c7a95036b68e26fccbca4b55f97de41"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kayex/http-codes/zipball/c21375fd1c7a95036b68e26fccbca4b55f97de41",
-                "reference": "c21375fd1c7a95036b68e26fccbca4b55f97de41",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Epoch2": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Johan Vester",
-                    "homepage": "http://jvester.se"
-                }
-            ],
-            "description": "Small PHP library for easily accessing HTTP Status Codes.",
-            "keywords": [
-                "http",
-                "http code",
-                "http status"
-            ],
-            "time": "2015-06-04 12:14:17"
-        },
-        {
             "name": "erusev/parsedown",
             "version": "1.6.1",
             "source": {
@@ -729,6 +691,44 @@
                 }
             ],
             "time": "2015-04-20 18:58:01"
+        },
+        {
+            "name": "kayex/http-codes",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kayex/http-codes.git",
+                "reference": "9434bbf7e6f46da74bb81df9851855dcf77ade31"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kayex/http-codes/zipball/9434bbf7e6f46da74bb81df9851855dcf77ade31",
+                "reference": "9434bbf7e6f46da74bb81df9851855dcf77ade31",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Kayex": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Johan Vester",
+                    "homepage": "http://jvester.se"
+                }
+            ],
+            "description": "Small PHP library for easily accessing HTTP Status Codes.",
+            "keywords": [
+                "http",
+                "http code",
+                "http status"
+            ],
+            "time": "2017-02-14 13:29:27"
         },
         {
             "name": "laravel/framework",
