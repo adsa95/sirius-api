@@ -694,22 +694,22 @@
         },
         {
             "name": "kayex/http-codes",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kayex/http-codes.git",
-                "reference": "9434bbf7e6f46da74bb81df9851855dcf77ade31"
+                "reference": "4f7f8967d539f670b6b2dfdb86ad02de3d60e7b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kayex/http-codes/zipball/9434bbf7e6f46da74bb81df9851855dcf77ade31",
-                "reference": "9434bbf7e6f46da74bb81df9851855dcf77ade31",
+                "url": "https://api.github.com/repos/kayex/http-codes/zipball/4f7f8967d539f670b6b2dfdb86ad02de3d60e7b5",
+                "reference": "4f7f8967d539f670b6b2dfdb86ad02de3d60e7b5",
                 "shasum": ""
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Kayex": "src/"
+                "psr-4": {
+                    "Kayex\\": "src/Kayex/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -725,10 +725,10 @@
             "description": "Small PHP library for easily accessing HTTP Status Codes.",
             "keywords": [
                 "http",
-                "http code",
-                "http status"
+                "http status",
+                "status code"
             ],
-            "time": "2017-02-14 13:29:27"
+            "time": "2017-02-14 13:50:37"
         },
         {
             "name": "laravel/framework",
