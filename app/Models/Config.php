@@ -7,6 +7,10 @@ class Config extends Model
 {
     protected $fillable = ['config', 'slack_token'];
     protected $hidden = ['slack_ids'];
+    public function httpPlugins()
+    {
+        return $this->hasMany('App\Models\HttpPlugin', 'sirius_id', 'sirius_id');
+    }
 
     public function getConfigAttribute($value)
     {
