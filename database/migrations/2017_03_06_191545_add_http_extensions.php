@@ -18,7 +18,7 @@ class AddHttpExtensions extends Migration
             $table->char('sirius_id', 64);
             $table->string('url');
             $table->string('name', 100);
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->json('config')->nullable();
             $table->timestamps();
         });
