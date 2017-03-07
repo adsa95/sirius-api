@@ -14,7 +14,7 @@ class Config extends Model
 
     public function httpPlugins()
     {
-        return $this->hasMany(App\Models\HttpPlugin::class, 'sirius_id', 'sirius_id');
+        return $this->hasMany(HttpPlugin::class, 'sirius_id', 'sirius_id');
     }
 
     public function setConfigAttribute(array $config)
