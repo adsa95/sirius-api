@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 // Helpers
-use Epoch2\HttpCodes;
+use Kayex\HttpCodes;
 
 class UpController extends Controller
 {
