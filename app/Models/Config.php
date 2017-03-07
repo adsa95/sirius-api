@@ -19,23 +19,35 @@ class Config extends Model
 
     public function setConfigAttribute(array $config)
     {
-        foreach ($config as $extension => &$settings) {
+        $encoded = json_encode($this->emptyArraysToObjects($config), false);
 
-            if (empty($settings)) {
-                $settings = json_decode('{}', false);
-            }
-        }
+        $this->attributes['config'] = $encoded;
     }
 
     public function setHttpExtensionsAttribute(array $config)
     {
-        foreach ($config as $extension => &$settings) {
+        $encoded = json_encode($this->emptyArraysToObjects($config), false);
 
-            if (empty($settings)) {
-                $settings = json_decode('{}', false);
+        $this->attributes['http_extensions'] = $encoded;
+    }
+
+    public function emptyArraysToObjects(array $json)
+    {
+        if (empty($json)) {
+            return $this->emptyJsonObject();
+        }
+
+        foreach ($json as $key => &$value) {
+            if (is_array($value) && empty($value)) {
+                $value = $this->emptyJsonObject();
             }
         }
 
-        $this->attributes['http_extensions'] = json_encode($config);
+        return $json;
+    }
+
+    public function emptyJsonObject()
+    {
+        return json_decode('{}', false);
     }
 }
