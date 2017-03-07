@@ -1,18 +1,5 @@
 <?php
 
-// Core
-use Illuminate\Http\Request;
-
-// Exceptions
-use App\Exceptions\SlackException;
-
-// MQTT
-use App\Helpers\MQTT;
-
-// Models
-use App\Models\Plugin;
-use App\Models\Config;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
