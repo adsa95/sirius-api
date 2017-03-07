@@ -35,7 +35,7 @@ class ConfigController extends Controller
     public function show(Request $request, string $siriusId)
     {
         return response()->json(
-            Config::where('sirius_id', '=', $siriusId)->firstOrFail(),
+            Config::where('sirius_id', '=', $siriusId)->with('httpPlugins')->firstOrFail(),
             HttpCodes::HTTP_OK
         );
     }
