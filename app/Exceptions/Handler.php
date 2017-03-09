@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 // Helpers
 use Kayex\HttpCodes;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -77,10 +76,14 @@ class Handler extends ExceptionHandler
      */
     private function wrapException(Exception $e): HttpException
     {
+        if ($e instanceof HttpException) {
+            return $e;
+        }
+
         if ($e instanceof TokenException) {
             return new HttpException(HttpCodes::HTTP_UNAUTHORIZED, $e->getMessage(), $e);
         } elseif ($e instanceof ModelNotFoundException) {
-            return new NotFoundHttpException($e->getMessage(), $e);
+            return new HttpException(HttpCodes::HTTP_NOT_FOUND, $e->getMessage(), $e);
         } elseif ($e instanceof SlackException) {
             if ($e instanceof SlackTokenException) {
                 return new HttpException(HttpCodes::HTTP_BAD_REQUEST, $e->getMessage(), $e);
