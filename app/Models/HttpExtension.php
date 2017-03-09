@@ -1,6 +1,6 @@
 <?php namespace App\Models;
 
-class HttpPlugin extends Plugin
+class HttpExtension extends Extension
 {	
 	protected $fillable = ['url', 'name', 'description', 'config'];
 	

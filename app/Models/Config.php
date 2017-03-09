@@ -8,20 +8,20 @@ class Config extends Model
     protected $fillable = ['config', 'slack_token', 'http_extensions'];
     protected $hidden = ['slack_ids', 'id'];
     protected $casts = [
-        'config' => 'object',
+        'extensions' => 'object',
         'http_extensions' => 'object',
     ];
 
-    public function httpPlugins()
+    public function httpExtensions()
     {
-        return $this->hasMany(HttpPlugin::class, 'sirius_id', 'sirius_id');
+        return $this->hasMany(HttpExtension::class, 'sirius_id', 'sirius_id');
     }
 
-    public function setConfigAttribute(array $config)
+    public function setExtensionsAttribute(array $config)
     {
         $encoded = json_encode($this->emptyArraysToObjects($config), false);
 
-        $this->attributes['config'] = $encoded;
+        $this->attributes['extensions'] = $encoded;
     }
 
     public function setHttpExtensionsAttribute(array $config)

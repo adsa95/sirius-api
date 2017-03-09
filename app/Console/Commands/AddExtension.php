@@ -4,23 +4,23 @@
 use Illuminate\Console\Command;
 
 // Models
-use App\Models\Plugin;
+use App\Models\Extension;
 
-class RemovePlugin extends Command
+class AddExtension extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'plugin:remove {name}';
+    protected $signature = 'extension:add {name} {description}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Remove a plugin';
+    protected $description = 'Add an extension to the database';
 
     /**
      * Create a new command instance.
@@ -39,8 +39,9 @@ class RemovePlugin extends Command
      */
     public function handle()
     {
-        $name = $this->argument('name');
-        $plugin = Plugin::where('name', '=', $name);
-        $plugin->delete();
+        $extension = new Extension();
+        $extension->name = $this->argument('name');
+        $extension->description = $this->argument('description');
+        $extension->save();
     }
 }
