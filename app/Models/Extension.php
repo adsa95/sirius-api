@@ -3,7 +3,7 @@
 // Core
 use Illuminate\Database\Eloquent\Model;
 
-class Plugin extends Model
+class Extension extends Model
 {
     public function getConfigAttribute($value)
     {

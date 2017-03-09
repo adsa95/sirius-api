@@ -9,14 +9,14 @@ use Illuminate\Http\Request;
 use Kayex\HttpCodes;
 
 // Models
-use App\Models\Plugin;
+use App\Models\Extension;
 
-class PluginController extends Controller
+class ExtensionController extends Controller
 {
     public function index(Request $request)
     {
         return response()->json(
-            Plugin::all(),
+            Extension::all(),
             HttpCodes::HTTP_OK
         );
     }

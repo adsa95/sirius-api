@@ -35,7 +35,7 @@ class ConfigController extends Controller
     public function show(Request $request, string $siriusId)
     {
         return response()->json(
-            Config::where('sirius_id', '=', $siriusId)->with('httpPlugins')->firstOrFail(),
+            Config::where('sirius_id', '=', $siriusId)->with('httpExtensions')->firstOrFail(),
             HttpCodes::HTTP_OK
         );
     }
@@ -43,12 +43,12 @@ class ConfigController extends Controller
     public function store(Request $request)
     {
         $token = $request->input('slack_token');
-        $configConfig = $request->input('config');
+        $extensions = $request->input('extensions');
 
         $config = Config::where('slack_token', '=' , $token)->first();
 
         if ($config !== null) {
-            $config->config = $configConfig;
+            $config->extensions = $extensions;
             $config->save();
 
             $this->notifier->update($config);
@@ -61,7 +61,7 @@ class ConfigController extends Controller
             if ($config !== null) {
                 $oldToken = $config->slack_token;
                 $config->slack_token = $token;
-                $config->config = $configConfig;
+                $config->extensions = $extensions;
                 $config->save();
 
                 $this->notifier->delete($oldToken);
@@ -70,7 +70,7 @@ class ConfigController extends Controller
                 $config = new Config;
                 $config->slack_token = $token;
                 $config->slack_ids = $id;
-                $config->config = $configConfig;
+                $config->extensions = $extensions;
                 $config->save();
 
                 $this->notifier->new($config);
