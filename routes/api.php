@@ -13,7 +13,6 @@
 
 Route::get('/up', 'UpController@up');
 
-Route::post('/extension', 'ExtensionController@extension');
 Route::get('/plugins', 'ExtensionController@index');
 
 Route::post('/http_plugins', 'HttpPluginController@store');
