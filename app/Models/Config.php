@@ -50,4 +50,11 @@ class Config extends Model
     {
         return json_decode('{}', false);
     }
+
+    public function generateSiriusId()
+    {
+        if ($this->sirius_id === null) {
+            $this->sirius_id = hash('sha256', $this->slack_ids);
+        }
+    }
 }
