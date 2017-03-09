@@ -31,7 +31,7 @@ class Config extends Model
         $this->attributes['http_extensions'] = $encoded;
     }
 
-    public function emptyArraysToObjects(array $json)
+    private function emptyArraysToObjects(array $json)
     {
         if (empty($json)) {
             return $this->emptyJsonObject();
@@ -46,8 +46,15 @@ class Config extends Model
         return $json;
     }
 
-    public function emptyJsonObject()
+    private function emptyJsonObject()
     {
         return json_decode('{}', false);
+    }
+
+    public function generateSiriusId()
+    {
+        if ($this->sirius_id === null) {
+            $this->sirius_id = hash('sha256', $this->slack_ids);
+        }
     }
 }
