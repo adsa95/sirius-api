@@ -19,7 +19,7 @@ class RenameConfigColumn extends Migration
         // columns of the 'json' type.
         //
         // We'll work around this by dropping the column and adding it again
-        // with the proper default value.
+        // with the correct name.
 
         // Make sure we don't lose any extensions
         $configs = DB::table('configs')->select('id', 'config')->get();
