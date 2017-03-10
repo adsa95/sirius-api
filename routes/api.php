@@ -13,11 +13,11 @@
 
 Route::get('/up', 'UpController@up');
 
-Route::get('/plugins', 'ExtensionController@index');
+Route::get('/extensions', 'ExtensionController@index');
 
-Route::post('/http_plugins', 'HttpPluginController@store');
-Route::put('/http_plugins/{plugin_id}', 'HttpPluginController@update');
-Route::delete('/http_plugins/{plugin_id}', 'HttpPluginController@delete');
+Route::post('/http_extensions', 'HttpExtensionController@store');
+Route::put('/http_extensions/{eid}', 'HttpExtensionController@update');
+Route::delete('/http_extensions/{eid}', 'HttpExtensionController@delete');
 
 Route::get('/configs', 'ConfigController@index')->middleware(['require.token']);
 Route::get('/configs/{sirius_id}', 'ConfigController@show');
